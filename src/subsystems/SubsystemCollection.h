@@ -12,11 +12,7 @@
 class SubsystemCollection {
 public:
     template<typename Owner, typename Factory>
-void Create(
-    Owner& owner,
-    SubsystemFactoryView<Factory> factories,
-    const char* level
-) {
+    void Create(Owner& owner, SubsystemFactoryView<Factory> factories, const char* level) {
         level_ = level;
         owner_ = static_cast<const void*>(std::addressof(owner));
 
@@ -66,6 +62,8 @@ void Create(
 
         throw std::logic_error("Required subsystem is missing.");
     }
+
+    void LogActiveSubsystems() const;
 
 private:
     enum class State {

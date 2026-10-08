@@ -23,6 +23,8 @@ public:
 
     void LoadWorld(WorldType type, int initialScore = 0);
 
+    void LogActiveSubsystems() const;
+
 private:
     GameEvents events_;
     SubsystemCollection subsystems_;

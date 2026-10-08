@@ -111,3 +111,7 @@ bool World::UpdatePlayer(const InputState& input, float deltaTime) {
 int World::GetInitialScore() const {
     return initialScore_;
 }
+
+void World::LogActiveSubsystems() const {
+    subsystems_.LogActiveSubsystems();
+}

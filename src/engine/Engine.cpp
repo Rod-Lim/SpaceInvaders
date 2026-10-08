@@ -1,4 +1,6 @@
 ﻿#include "Engine.h"
+#include <iostream>
+
 #include "raylib.h"
 #include "subsystems/InputSubsystem.h"
 #include "subsystems/WindowSubsystem.h"
@@ -105,6 +107,24 @@ void Engine::LoadWorld(WorldType type, int initialScore) {
     // }
 }
 
+void Engine::LogActiveSubsystems() const {
+    std::cout << "\n===== SUBSYSTEMS ACTIFS =====\n";
+
+    subsystems_.LogActiveSubsystems();
+
+    for (const auto& player : localPlayers_) {
+        player->LogActiveSubsystems();
+    }
+
+    if (world_) {
+        world_->LogActiveSubsystems();
+    } else {
+        std::cout << "[World] Aucun monde actif\n";
+    }
+
+    std::cout << "============================\n\n";
+}
+
 int Engine::Run() {
     subsystems_.Create(*this, GetEngineSubsystemFactories(),"Engine");
     subsystems_.Initialize();
@@ -128,6 +148,10 @@ int Engine::Run() {
 
     while (!windowSubsystem->ShouldClose()) {
         inputSubsystem->Poll();
+
+        if (inputSubsystem->IsPressed(KEY_F1)) {
+            LogActiveSubsystems();
+        }
 
         auto* currentRules  = world_->GetSubsystem<GameRulesSubsystem>();
 

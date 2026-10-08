@@ -52,3 +52,25 @@ void SubsystemCollection::Deinitialize() {
     initializationOrder_.clear();
     subsystems_.clear();
 }
+
+void SubsystemCollection::LogActiveSubsystems() const {
+    std::cout
+        << '[' << level_ << ']'
+        << " owner=" << owner_
+        << '\n';
+
+    bool hasActiveSubsystems = false;
+
+    for (const auto& entry : subsystems_) {
+        if (entry.state != State::Initialized) {
+            continue;
+        }
+
+        std::cout << "  - " << entry.name << '\n';
+        hasActiveSubsystems = true;
+    }
+
+    if (!hasActiveSubsystems) {
+        std::cout << "  Aucun subsystem actif\n";
+    }
+}

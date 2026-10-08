@@ -25,6 +25,8 @@ public:
         return subsystems_.Get<T>();
     }
 
+    void LogActiveSubsystems() const;
+
 private:
     Engine& engine_;
     int id_;

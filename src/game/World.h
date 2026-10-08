@@ -43,6 +43,8 @@ public:
 
     int GetInitialScore() const;
 
+    void LogActiveSubsystems() const;
+
 private:
     Engine& engine_;
     WorldType type_;
